@@ -75,11 +75,11 @@ function App() {
       <main>
         <p>Choose a Category to view a science fact...</p>
         <section className="categories">
-            <button onClick={buttonClickHandler}>TEST</button>
            {categoryApiResponse?.data?.categories?.map((category)=>(
                 <button onClick={buttonClickHandler}>{category?.categoryName}</button>
            ))} 
         </section>
+        {factApiResponse?.loading && <div className="loader"></div>}
         {/* <h1>
           {factApiResponse?.data}
         </h1> */}
