@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
-import {getScienceFact} from './services/aiService';
+import {getScienceFact,getScienceCategories} from './services/aiService';
 
 function App() {
-    const [factApiResponse,setfactApiResponse]=useState({
+    const [categoryApiResponse,setCategoryApiResponse]=useState({
         loading:true,
         data:null,
         error:null
     })
-    const fetchApiResponse=async()=>{
+    const [factApiResponse,setFactApiResponse]=useState({
+        loading:false,
+        data:null,
+        error:null
+    })
+    const fetchCategories=async()=>{
         try{
-            const data=await getScienceFact();
-            setfactApiResponse((prevState)=>{
+            const data=await getScienceCategories();
+            setCategoryApiResponse((prevState)=>{
                 return {
                     ...prevState,
                     loading:false,
-                    data
+                    data:JSON.parse(data)
                 }
             })
         }catch(error){
             console.log("error",error);
-            setfactApiResponse((prevState)=>{
+            setCategoryApiResponse((prevState)=>{
                 return {
                     ...prevState,
                     loading:false,
@@ -30,17 +35,54 @@ function App() {
         }
         
     }
+    const fetchCategoryFact=async(category)=>{
+        try{
+            setFactApiResponse((prevState) => {
+              return {
+                ...prevState,
+                loading: true,
+              };
+            });
+            const data=await getScienceFact(category);
+            setFactApiResponse((prevState)=>{
+                return {
+                    ...prevState,
+                    loading:false,
+                    data
+                }
+            })
+        }catch(error){
+           console.log("error",error);
+            setFactApiResponse((prevState)=>{
+                return {
+                    ...prevState,
+                    loading:false,
+                    data:"Something went wrong !!! Please try again later",
+                    error,
+                }
+            }) 
+        }
+    }
+    const buttonClickHandler=(e)=>{
+        fetchCategoryFact(e.target.textContent);
+    }
     useEffect(()=>{
-        fetchApiResponse();
+        fetchCategories();
     },[])
   return (
-    <section className={factApiResponse?.loading ? "loading":""}>
+    <section className={categoryApiResponse?.loading ? "loading":""}>
       <div className="loader"></div>
       <main>
-        <p>Here's your science fact...</p>
-        <h1>
+        <p>Choose a Category to view a science fact...</p>
+        <section className="categories">
+            <button onClick={buttonClickHandler}>TEST</button>
+           {categoryApiResponse?.data?.categories?.map((category)=>(
+                <button onClick={buttonClickHandler}>{category?.categoryName}</button>
+           ))} 
+        </section>
+        {/* <h1>
           {factApiResponse?.data}
-        </h1>
+        </h1> */}
       </main>
     </section>
   );

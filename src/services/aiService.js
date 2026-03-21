@@ -1,22 +1,30 @@
 import { GoogleGenAI } from "@google/genai";
+import AppConstant from "../../constants/appConstant";
+import { array, object, string, toJSONSchema } from "zod";
 
-const GEMINI_API_KEY="AIzaSyD5qMoCRdYL3KfXPU-s6IXWunWDB53EmOA";
+const categorySchema=object({
+  categoryName:string().describe("Name of the category")
+})
+const schema=object({
+  categories:array(categorySchema)
+})
+const ai = new GoogleGenAI({apiKey:AppConstant?.GEMINI_API_KEY});
 
-// The client gets the API key from the environment variable `GEMINI_API_KEY`.
-const ai = new GoogleGenAI({apiKey:GEMINI_API_KEY});
-
-export const getScienceFact=async()=> {
+export const getScienceCategories=async()=> {
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
-    contents: `
-      Write an interesting science fact in 3 line or less.
-      Choose randomly between one of the following topic
-      - Music
-      - Astrophysics
-      - Biology
-
-      Add some emoji only if it makes sense.
-    `,
+    contents: AppConstant?.CATEGORIES_PROMPT,
+    config:{
+      responseMimeType:"application/json",
+      responseJsonSchema:toJSONSchema(schema)
+    }
+  });
+  return response.text;
+}
+export const getScienceFact=async(category)=> {
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: AppConstant?.getFactPromptByCategory(category),
   });
   return response.text;
 }
