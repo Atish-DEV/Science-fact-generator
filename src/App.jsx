@@ -28,7 +28,6 @@ function App() {
                 return {
                     ...prevState,
                     loading:false,
-                    data:"Something went wrong !!! Please try again later",
                     error,
                 }
             })
@@ -57,7 +56,6 @@ function App() {
                 return {
                     ...prevState,
                     loading:false,
-                    data:"Something went wrong !!! Please try again later",
                     error,
                 }
             }) 
@@ -69,20 +67,29 @@ function App() {
     useEffect(()=>{
         fetchCategories();
     },[])
+  if(categoryApiResponse?.error || factApiResponse?.error){
+    return(
+        <main className="done">
+            <h1>Something went wrong !!! Please try again later</h1>
+        </main>
+    )
+  }
   return (
-    <section className={categoryApiResponse?.loading ? "loading":""}>
+    <section className={categoryApiResponse?.loading ? "loading" : ""}>
       <div className="loader"></div>
-      <main>
+      <main className={factApiResponse?.data ? "done" : ""}>
         <p>Choose a Category to view a science fact...</p>
         <section className="categories">
-           {categoryApiResponse?.data?.categories?.map((category)=>(
-                <button onClick={buttonClickHandler}>{category?.categoryName}</button>
-           ))} 
+          {categoryApiResponse?.data?.categories?.map((category) => (
+            <button onClick={buttonClickHandler}>
+              {category?.categoryName}
+            </button>
+          ))}
         </section>
-        {factApiResponse?.loading && <div className="loader"></div>}
-        {/* <h1>
-          {factApiResponse?.data}
-        </h1> */}
+          <div className={factApiResponse?.loading ? "innerLoading":""}>
+            <div className="loader"></div>
+          </div>
+        <h1>{factApiResponse?.data}</h1>
       </main>
     </section>
   );
