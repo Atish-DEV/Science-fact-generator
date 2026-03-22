@@ -12,7 +12,7 @@ const ai = new GoogleGenAI({apiKey:AppConstant?.GEMINI_API_KEY});
 
 export const getScienceCategories=async()=> {
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: AppConstant?.GEMINI_MODEL,
     contents: AppConstant?.CATEGORIES_PROMPT,
     config:{
       responseMimeType:"application/json",
@@ -23,7 +23,7 @@ export const getScienceCategories=async()=> {
 }
 export const getScienceFact=async(category)=> {
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: AppConstant?.GEMINI_MODEL,
     contents: AppConstant?.getFactPromptByCategory(category),
   });
   return response.text;

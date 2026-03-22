@@ -91,6 +91,7 @@ function App() {
             <div className="loader"></div>
           </div>
         <h1>{factApiResponse?.data}</h1>
+        {factApiResponse?.data && <button>Get another fact</button>}
       </main>
     </section>
   );
