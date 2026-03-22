@@ -72,6 +72,9 @@ main{
         h1{
             display: block;
         }
+        section.categories{
+            display: none;
+        }
     }
 }
 .innerLoading{

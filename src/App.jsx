@@ -47,6 +47,7 @@ function App() {
                 return {
                     ...prevState,
                     loading:false,
+                    category,
                     data
                 }
             })
@@ -78,7 +79,7 @@ function App() {
     <section className={categoryApiResponse?.loading ? "loading" : ""}>
       <div className="loader"></div>
       <main className={factApiResponse?.data ? "done" : ""}>
-        <p>Choose a Category to view a science fact...</p>
+        <p>{factApiResponse?.data ? `Here's your science fact about ${factApiResponse?.category}` :"Choose a Category to view a science fact..."}</p>
         <section className="categories">
           {categoryApiResponse?.data?.categories?.map((category) => (
             <button onClick={buttonClickHandler}>

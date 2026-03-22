@@ -1,5 +1,5 @@
 const AppConstant={
-    GEMINI_API_KEY:"AIzaSyBfxW4SFW4mHk9OabQ3sPbXTV9PaIZbLRc",
+    GEMINI_API_KEY:"AIzaSyBd80R9zN8BI7eAMOzTc5GdID1K7UM2zP0",
     CATEGORIES_PROMPT:`
         Give me 5 random science category name people
         would be interest to know about
