@@ -40,7 +40,7 @@ This project connects a React frontend with the Gemini API to generate science f
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/science-fact-generator.git
+git clone https://github.com/Atish-DEV/Science-fact-generator.git
 ```
 
 Navigate into the project:
