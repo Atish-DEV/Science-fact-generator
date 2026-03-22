@@ -62,6 +62,9 @@ function App() {
             }) 
         }
     }
+    const newFactClickHandler=(category)=>{
+        fetchCategoryFact(category);
+    }
     const buttonClickHandler=(e)=>{
         fetchCategoryFact(e.target.textContent);
     }
@@ -91,7 +94,7 @@ function App() {
             <div className="loader"></div>
           </div>
         <h1>{factApiResponse?.data}</h1>
-        {factApiResponse?.data && <button>Get another fact</button>}
+        {factApiResponse?.data && <button onClick={()=>newFactClickHandler(factApiResponse?.category)}>Get another fact</button>}
       </main>
     </section>
   );
