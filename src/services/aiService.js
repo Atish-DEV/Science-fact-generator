@@ -8,7 +8,8 @@ const categorySchema=object({
 const schema=object({
   categories:array(categorySchema)
 })
-const ai = new GoogleGenAI({apiKey:AppConstant?.GEMINI_API_KEY});
+const API_KEY=import.meta.env.GEMINI_API_KEY;
+const ai = new GoogleGenAI({apiKey:API_KEY});
 
 export const getScienceCategories=async()=> {
   const response = await ai.models.generateContent({
