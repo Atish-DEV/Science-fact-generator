@@ -2,6 +2,9 @@
 
 A simple web application that generates science facts using Google Gemini AI. The app is built with React and focuses on producing short, structured, and readable outputs.
 
+Deploy at netlify
+https://science-fact-generator.netlify.app/
+
 ## Overview
 
 This project connects a React frontend with the Gemini API to generate science facts dynamically. Instead of displaying raw text responses, the app structures the output in JSON format to ensure consistency and easier rendering on the UI.
