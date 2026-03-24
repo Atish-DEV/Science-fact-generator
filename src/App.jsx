@@ -79,7 +79,7 @@ function App() {
     )
   }
   return (
-    <section className={categoryApiResponse?.loading ? "loading" : ""}>
+    <section className={categoryApiResponse?.loading || factApiResponse?.loading ? "loading" : ""}>
       <div className="loader"></div>
       <main className={factApiResponse?.data ? "done" : ""}>
         <p>{factApiResponse?.data ? `Here's your science fact about ${factApiResponse?.category}` :"Choose a Category to view a science fact..."}</p>
@@ -94,7 +94,7 @@ function App() {
             <div className="loader"></div>
           </div>
         <h1>{factApiResponse?.data}</h1>
-        {factApiResponse?.data && <button onClick={()=>newFactClickHandler(factApiResponse?.category)}>Get another fact</button>}
+        {factApiResponse?.data && <button onClick={()=>newFactClickHandler(factApiResponse?.category)}>{`Get another fact about ${factApiResponse?.category}`}</button>}
       </main>
     </section>
   );
